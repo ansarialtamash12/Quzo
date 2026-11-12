@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { User, Mail, ArrowRight, Sparkles, ShieldCheck, KeyRound } from "lucide-react";
-
-const field = "w-full rounded-xl border bg-[#031B23] px-4 py-3 text-sm text-white placeholder:text-slate-500 transition-colors duration-300 focus:border-[#19D8D0] focus:outline-none";
+import { motion } from "framer-motion";
+import { User, Mail, ArrowRight, Sparkles, ShieldCheck, Lock, ArrowLeft, Blocks, BrainCircuit, Network } from "lucide-react";
+import { HeroBackground } from "../components/quzo/HeroBackground"; // Background import kiya
 
 export default function ForgotPassword() {
   const handleSubmit = (e) => {
@@ -9,119 +9,109 @@ export default function ForgotPassword() {
     console.log("Reset link sent");
   };
 
+  const inputWrapper = "relative flex items-center rounded-xl border border-white/10 bg-[#031B23]/80 backdrop-blur-md transition-all duration-300 focus-within:border-[#19D8D0] focus-within:ring-2 focus-within:ring-[#19D8D0]/30 hover:border-white/20";
+  const inputField = "w-full bg-transparent px-12 py-4 text-sm text-white outline-none placeholder:text-slate-500";
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#031B23] px-4 py-12">
-      <div className="w-full max-w-[460px]">
+    <div className="min-h-screen flex items-center justify-center p-4 lg:p-8 relative overflow-hidden bg-[#031B23]">
+      
+      {/* HD Background - Same as Login */}
+      <HeroBackground />
+      <div className="absolute inset-0 bg-[#031B23]/40 z-0" />
+
+      {/* Main Split Card Container */}
+      <motion.div 
+        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full max-w-[1000px] min-h-[600px] relative z-10 flex rounded-[2rem] border border-white/10 bg-[#031B23]/70 backdrop-blur-2xl shadow-[0_0_100px_-20px_rgba(25,216,208,0.3)] overflow-hidden"
+      >
         
-        {/* Main Card */}
-        <div className="rounded-[28px] border border-white/10 bg-[#052832]/70 p-8 md:p-10 shadow-2xl">
+        {/* LEFT SIDE - Branding */}
+        <div className="hidden lg:flex w-1/2 relative flex-col justify-between p-12 bg-gradient-to-br from-[#052832]/90 to-[#031B23]/90 border-r border-white/5 overflow-hidden">
+          <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-[#19D8D0]/20 blur-[100px] rounded-full pointer-events-none" />
           
-          {/* Header Section */}
-          <div className="flex flex-col items-center text-center">
-            <div className="mb-6 flex items-center gap-2 text-3xl font-bold font-display text-white tracking-wide">
-              <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-[#19D8D0] to-[#64BDB7] flex items-center justify-center">
-                <span className="text-[#031B23]">Q</span>
+          <div className="relative z-10">
+            <Link to="/" className="flex items-center gap-3 text-3xl font-bold font-display text-white tracking-wide mb-12 w-max">
+              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#19D8D0] to-[#64BDB7] flex items-center justify-center shadow-[0_0_30px_rgba(25,216,208,0.5)]">
+                <span className="text-[#031B23] text-2xl">Q</span>
               </div>
               Quzo
-            </div>
+            </Link>
 
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#19D8D0]/30 bg-[#19D8D0]/10 px-4 py-1.5 text-[11px] font-mono uppercase tracking-widest text-[#19D8D0]">
-              <Sparkles size={14} />
-              Recover Account
-            </div>
-
-            <h1 className="font-display text-3xl md:text-4xl text-white tracking-wide">
-              FORGOT <br />
-              <span className="text-[#19D8D0]">PASSWORD</span>
+            <h1 className="text-4xl lg:text-5xl font-display text-white leading-tight">
+              Recover <br />Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#19D8D0] to-[#64BDB7]">Access.</span>
             </h1>
-            <p className="mt-3 font-mono text-[11px] tracking-[0.2em] text-slate-400 uppercase">
+            <p className="mt-6 text-slate-400 text-sm leading-relaxed max-w-sm">
+              Don't worry, it happens to the best of us. Enter your details and we'll help you get back into your account securely.
+            </p>
+          </div>
+
+          <div className="relative z-10 mt-12 space-y-4">
+            {[
+              { icon: ShieldCheck, text: "Bank-Grade Encryption" },
+              { icon: Lock, text: "Secure Password Reset" },
+              { icon: User, text: "Identity Verification" }
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                <div className="p-2 rounded-lg bg-white/5 border border-white/10">
+                  <item.icon size={16} className="text-[#19D8D0]" />
+                </div>
+                {item.text}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* RIGHT SIDE - The Form */}
+        <div className="w-full lg:w-1/2 p-8 md:p-12 flex flex-col justify-center relative bg-[#031B23]/40">
+          
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left mb-8">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#19D8D0]/30 bg-[#19D8D0]/10 px-4 py-1.5 text-[11px] font-mono uppercase tracking-widest text-[#19D8D0]">
+              <Sparkles size={14} />
+              Account Recovery
+            </div>
+            <h2 className="font-display text-3xl lg:text-4xl text-white tracking-wider">
+              FORGOT <span className="text-[#19D8D0]">PASSWORD</span>
+            </h2>
+            <p className="mt-2 font-mono text-[11px] tracking-[0.2em] text-slate-400 uppercase">
               Reset your account access
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-            
-            {/* Account Details Section */}
-            <div className="rounded-2xl border border-white/10 bg-[#052832]/50 p-6">
-              <div className="mb-5 flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#19D8D0] text-[#031B23]">
-                  <KeyRound size={18} />
-                </div>
-                <h2 className="font-mono text-sm uppercase tracking-wider text-[#19D8D0]">
-                  Account Details
-                </h2>
-              </div>
-
-              <div className="space-y-5">
-                {/* User ID Input */}
-                <div>
-                  <label className="mb-2 block text-xs font-medium text-slate-300">User ID <span className="text-[#19D8D0]">*</span></label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
-                      <User size={18} />
-                    </div>
-                    <input 
-                      type="text" 
-                      placeholder="Enter your User ID" 
-                      className={`${field} border-white/15 pl-11`} 
-                      required 
-                    />
-                  </div>
-                </div>
-
-                {/* Email Address Input */}
-                <div>
-                  <label className="mb-2 block text-xs font-medium text-slate-300">Email Address <span className="text-[#19D8D0]">*</span></label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
-                      <Mail size={18} />
-                    </div>
-                    <input 
-                      type="email" 
-                      placeholder="Enter your email" 
-                      className={`${field} border-white/15 pl-11`} 
-                      required 
-                    />
-                  </div>
-                </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="mb-2 block text-xs font-medium text-slate-300">User ID <span className="text-[#19D8D0]">*</span></label>
+              <div className={inputWrapper}>
+                <User size={20} className="absolute left-4 text-slate-500" />
+                <input type="text" placeholder="Enter your User ID" className={inputField} required />
               </div>
             </div>
 
-            {/* Submit Button */}
-            <button 
-              type="submit" 
-              className="q-focus q-btn-primary group w-full justify-center py-4 rounded-xl text-sm"
-            >
-              SEND RESET LINK <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
+            <div>
+              <label className="mb-2 block text-xs font-medium text-slate-300">Email Address <span className="text-[#19D8D0]">*</span></label>
+              <div className={inputWrapper}>
+                <Mail size={20} className="absolute left-4 text-slate-500" />
+                <input type="email" placeholder="Enter your registered email" className={inputField} required />
+              </div>
+            </div>
+
+            <button type="submit" className="q-focus group flex w-full items-center justify-center gap-2 rounded-xl bg-[#19D8D0] py-4 text-[#031B23] text-base font-semibold shadow-[0_0_20px_rgba(25,216,208,0.3)] transition-all duration-300 hover:bg-[#7FF3EC] hover:shadow-[0_0_40px_rgba(25,216,208,0.6)] mt-2">
+              SEND RESET LINK <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="mt-8 flex items-center gap-4">
-            <span className="h-px flex-1 bg-white/10"></span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">Remembered?</span>
-            <span className="h-px flex-1 bg-white/10"></span>
-          </div>
-
-          {/* Footer Link */}
-          <div className="mt-5 text-center">
+          <div className="mt-8 flex flex-col items-center lg:items-start">
             <p className="text-sm text-slate-400">
               Back to{" "}
-              <Link to="/login" className="font-medium text-[#19D8D0] hover:underline">
-                Sign In
+              <Link to="/login" className="font-medium text-[#19D8D0] hover:text-[#7FF3EC] transition-colors ml-1 inline-flex items-center gap-1">
+                <ArrowLeft size={14} /> Sign In
               </Link>
             </p>
           </div>
 
         </div>
-
-        {/* Bottom Security Note */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-slate-500">
-          <ShieldCheck size={16} />
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Secure Encrypted Access</span>
-        </div>
-
-      </div>
+      </motion.div>
     </div>
   );
 }
