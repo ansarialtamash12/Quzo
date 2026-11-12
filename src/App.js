@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import "@/App.css";
 import { setLenis } from "@/lib/scroll";
+
+
 import { Nav } from "@/components/quzo/Nav";
 import { Hero } from "@/components/quzo/Hero";
 import { Marquee } from "@/components/quzo/Marquee";
@@ -14,7 +17,11 @@ import { Roadmap } from "@/components/quzo/Roadmap";
 import { Partner } from "@/components/quzo/Partner";
 import { Footer } from "@/components/quzo/Footer";
 
-function App() {
+
+import Login from "@/pages/login";
+import Register from "@/pages/register";
+import ForgotPassword from "@/pages/ForgotPassword";
+function Home() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
@@ -45,8 +52,26 @@ function App() {
         <Partner />
       </main>
       <Footer />
-      <Toaster theme="dark" position="bottom-center" toastOptions={{ style: { background: "#052832", border: "1px solid rgba(25,216,208,0.3)", color: "#fff" } }} />
     </div>
+  );
+}
+
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Landing Page */}
+        <Route path="/" element={<Home />} />
+        
+        {/* Auth Pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Routes>
+
+      <Toaster theme="dark" position="bottom-center" toastOptions={{ style: { background: "#052832", border: "1px solid rgba(25,216,208,0.3)", color: "#fff" } }} />
+    </Router>
   );
 }
 

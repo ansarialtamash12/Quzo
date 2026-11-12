@@ -12,4 +12,5 @@ export const NAV_LINKS = [
   { id: "technology", label: "Technology" },
   { id: "tokenomics", label: "Tokenomics" },
   { id: "roadmap", label: "Roadmap" },
+    { id: "contact", label: "Contact Us" },
 ];

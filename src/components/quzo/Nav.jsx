@@ -5,6 +5,8 @@ import { Logo } from "./Logo";
 import { SmartLink } from "./SmartLink";
 import { NAV_LINKS, SITE } from "../../config/site";
 import { scrollToId, getLenis } from "../../lib/scroll";
+import {Link} from "react-router-dom";
+import {ArrowRight} from "lucide-react";
 
 const useActiveSection = () => {
   const [active, setActive] = useState("home");
@@ -70,9 +72,13 @@ export const Nav = () => {
           <SmartLink href={SITE.whitepaperUrl} label="The QUZO whitepaper" testId="nav-whitepaper-button" className="q-focus q-btn-ghost">
             Whitepaper
           </SmartLink>
-          <button type="button" onClick={() => go("contact")} className="q-focus q-btn-primary" data-testid="nav-contact-button">
-            Contact Us <ArrowUpRight size={15} />
-          </button>
+        <Link 
+  to="/login" 
+  className="q-focus q-btn-primary inline-flex items-center gap-2" 
+  data-testid="nav-get-started-button"
+>
+  Get Started <ArrowUpRight size={15} />
+</Link>
         </div>
         <button
           type="button"
@@ -111,9 +117,13 @@ export const Nav = () => {
               <SmartLink href={SITE.whitepaperUrl} label="The QUZO whitepaper" testId="mobile-whitepaper-button" className="q-focus q-btn-ghost justify-center">
                 Whitepaper
               </SmartLink>
-              <button type="button" onClick={() => go("contact")} className="q-focus q-btn-primary justify-center" data-testid="mobile-contact-button">
-                Contact Us <ArrowUpRight size={15} />
-              </button>
+              <Link 
+                to="/login" 
+                className="q-focus q-btn-primary justify-center inline-flex items-center gap-2" 
+                data-testid="mobile-get-started-button"
+              >
+                Get Started <ArrowUpRight size={15} />
+              </Link>
             </div>
           </motion.div>
         )}
