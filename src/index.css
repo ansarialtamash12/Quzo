@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --q-bg: #031b23;
+  --q-bg-2: #052832;
+  --q-accent: #19d8d0;
+  --q-teal: #64bdb7;
+}
+
+html {
+  position: relative;
+  background: var(--q-bg);
+  scroll-behavior: auto;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  margin: 0;
+  background: var(--q-bg);
+  color: #e2e8f0;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(25, 216, 208, 0.3); color: #fff; }
+
+@layer base {
+  :root {
+    --background: 195 84% 7%;
+    --foreground: 0 0% 98%;
+    --border: 0 0% 100%;
+    --radius: 0.75rem;
+  }
+  * { border-color: rgba(255, 255, 255, 0.1); }
+}
+
+@layer components {
+  .font-display { font-family: "Space Grotesk", "Inter", sans-serif; }
+  .font-mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  .q-eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #cbd5e1;
+  }
+  .q-h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2rem, 4.6vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #fff;
+  }
+  .q-btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border-radius: 999px; padding: 0.85rem 1.4rem;
+    background: var(--q-accent); color: #031b23;
+    font-size: 14px; font-weight: 600;
+    transition: background-color 300ms, transform 300ms;
+  }
+  .q-btn-primary:hover { background: #4fe6df; transform: translateY(-1px); }
+  .q-btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border-radius: 999px; padding: 0.85rem 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.18); color: #fff;
+    font-size: 14px; font-weight: 500;
+    transition: border-color 300ms, background-color 300ms;
+  }
+  .q-btn-ghost:hover { border-color: rgba(25, 216, 208, 0.6); background: rgba(25, 216, 208, 0.06); }
+  .q-focus:focus-visible { outline: 2px solid var(--q-accent); outline-offset: 3px; }
+  .q-skip {
+    position: absolute; left: 1rem; top: -60px; z-index: 100;
+    background: var(--q-accent); color: #031b23; padding: 0.6rem 1rem; border-radius: 8px;
+  }
+  .q-skip:focus { top: 1rem; }
+  .q-grid {
+    background-image:
+      linear-gradient(rgba(100, 189, 183, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 189, 183, 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%);
+  }
+  .q-outline-text {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(203, 213, 225, 0.4);
+  }
+}
+
+@keyframes q-marquee { to { transform: translateX(-50%); } }
+.q-marquee { animation: q-marquee 70s linear infinite; }
+@keyframes q-spin { from { transform: rotateX(72deg) rotateZ(0deg); } to { transform: rotateX(72deg) rotateZ(360deg); } }
+@keyframes q-spin-flat { to { transform: rotate(360deg); } }
+.q-orbit { animation: q-spin-flat 40s linear infinite; }
+.q-orbit-rev { animation: q-spin-flat 60s linear infinite reverse; }
+.q-orbit-3d { animation: q-spin 40s linear infinite; }
+@keyframes q-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.q-float { animation: q-float 7s ease-in-out infinite; }
+@keyframes q-flow { to { stroke-dashoffset: -30; } }
+.q-flow { animation: q-flow 2.4s linear infinite; }
+@keyframes q-camera { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-6px, 4px) scale(1.025); } }
+.q-camera { animation: q-camera 22s ease-in-out infinite; }
+@keyframes q-sweep { 0% { background-position: 160% 0; } 60%, 100% { background-position: -60% 0; } }
+.q-sweep {
+  background-image: linear-gradient(110deg, transparent 35%, rgba(170, 245, 240, 0.35) 48%, rgba(255, 255, 255, 0.5) 50%, rgba(170, 245, 240, 0.35) 52%, transparent 65%);
+  background-size: 250% 100%;
+  animation: q-sweep 9s ease-in-out infinite;
+}
+section[id] { scroll-margin-top: 88px; }
+@keyframes q-amb { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; } 50% { transform: translate(3%, -4%) scale(1.08); opacity: 1; } }
+.q-amb-a { animation: q-amb 18s ease-in-out infinite; }
+.q-amb-b { animation: q-amb 26s ease-in-out infinite reverse; }
+.q-amb-c { animation: q-amb 32s ease-in-out infinite; }
+@keyframes q-gdot-x { 0% { transform: translateX(-10px); opacity: 0; } 8%, 85% { opacity: 0.8; } 100% { transform: translateX(110vw); opacity: 0; } }
+@keyframes q-gdot-y { 0% { transform: translateY(-10px); opacity: 0; } 8%, 85% { opacity: 0.8; } 100% { transform: translateY(110vh); opacity: 0; } }
+.q-gdot-x { animation: q-gdot-x 20s linear infinite; }
+.q-gdot-y { animation: q-gdot-y 20s linear infinite; }
+@keyframes q-bgflow { to { stroke-dashoffset: -360; } }
+.q-bgflow { animation: q-bgflow 40s linear infinite; }
+@keyframes q-bgpulse { from { stroke-dashoffset: 2470; } to { stroke-dashoffset: 0; } }
+.q-bgpulse { animation: q-bgpulse 18s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .q-marquee, .q-orbit, .q-orbit-rev, .q-orbit-3d, .q-float, .q-flow, .q-camera, .q-sweep, .q-amb-a, .q-amb-b, .q-amb-c, .q-gdot-x, .q-gdot-y, .q-bgflow, .q-bgpulse { animation: none !important; }
+  .q-gdot-x, .q-gdot-y { opacity: 0; }
+  html { scroll-behavior: auto; }
+}
+
