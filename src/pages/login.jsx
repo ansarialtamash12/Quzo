@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { User, Lock, Eye, EyeOff, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
-
-const field = "w-full rounded-xl border bg-[#031B23] px-4 py-3 text-sm text-white placeholder:text-slate-500 transition-colors duration-300 focus:border-[#19D8D0] focus:outline-none";
+import { motion } from "framer-motion";
+import { User, Lock, Eye, EyeOff, ArrowRight, ShieldCheck, Sparkles, Blocks, BrainCircuit, Network } from "lucide-react";
+import { HeroBackground } from "../components/quzo/HeroBackground"; 
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,144 +13,121 @@ export default function Login() {
     console.log("Login submitted");
   };
 
+  const inputWrapper = "relative flex items-center rounded-xl border border-white/10 bg-[#031B23]/80 backdrop-blur-md transition-all duration-300 focus-within:border-[#19D8D0] focus-within:ring-2 focus-within:ring-[#19D8D0]/30 hover:border-white/20";
+  const inputField = "w-full bg-transparent px-12 py-4 text-sm text-white outline-none placeholder:text-slate-500";
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#031B23] px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center p-4 lg:p-8 relative overflow-hidden bg-[#031B23]">
       
-      <div className="w-full max-w-[440px]">
+      {/* HD Background */}
+      <HeroBackground />
+      <div className="absolute inset-0 bg-[#031B23]/40 z-0" />
+
+      {/* Main Split Card Container */}
+      <motion.div 
+        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full max-w-[1000px] min-h-[650px] relative z-10 flex rounded-[2rem] border border-white/10 bg-[#031B23]/70 backdrop-blur-2xl shadow-[0_0_100px_-20px_rgba(25,216,208,0.3)] overflow-hidden"
+      >
         
-        {/* Main Card */}
-        <div className="rounded-[28px] border border-white/10 bg-[#052832]/70 p-8 shadow-2xl">
+        {/* LEFT SIDE - Branding & Graphics (Hidden on Mobile) */}
+        <div className="hidden lg:flex w-1/2 relative flex-col justify-between p-12 bg-gradient-to-br from-[#052832]/90 to-[#031B23]/90 border-r border-white/5 overflow-hidden">
+          {/* Internal Glow */}
+          <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-[#19D8D0]/20 blur-[100px] rounded-full pointer-events-none" />
           
-          {/* Logo */}
-          <div className="flex flex-col items-center text-center">
-            <div className="mb-6 flex items-center gap-2 text-3xl font-bold font-display text-white tracking-wide">
-              <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-[#19D8D0] to-[#64BDB7] flex items-center justify-center">
-                <span className="text-[#031B23]">Q</span>
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 text-3xl font-bold font-display text-white tracking-wide mb-12">
+              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#19D8D0] to-[#64BDB7] flex items-center justify-center shadow-[0_0_30px_rgba(25,216,208,0.5)]">
+                <span className="text-[#031B23] text-2xl">Q</span>
               </div>
               Quzo
             </div>
 
-            {/* Welcome Badge */}
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#19D8D0]/30 bg-[#19D8D0]/10 px-4 py-1.5 text-[11px] font-mono uppercase tracking-widest text-[#19D8D0]">
+            <h1 className="text-4xl lg:text-5xl font-display text-white leading-tight">
+              Intelligence <br />Meets <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#19D8D0] to-[#64BDB7]">Finance.</span>
+            </h1>
+            <p className="mt-6 text-slate-400 text-sm leading-relaxed max-w-sm">
+              An AI-powered blockchain ecosystem connecting digital assets, decentralised finance and intelligent trading.
+            </p>
+          </div>
+
+          <div className="relative z-10 mt-12 space-y-4">
+            {[
+              { icon: Blocks, text: "EVM-Compatible Infrastructure" },
+              { icon: BrainCircuit, text: "AI-Powered Intelligence" },
+              { icon: Network, text: "Multi-Market Connectivity" }
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                <div className="p-2 rounded-lg bg-white/5 border border-white/10">
+                  <item.icon size={16} className="text-[#19D8D0]" />
+                </div>
+                {item.text}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* RIGHT SIDE - The Form */}
+        <div className="w-full lg:w-1/2 p-8 md:p-12 flex flex-col justify-center relative bg-[#031B23]/40">
+          
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left mb-8">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#19D8D0]/30 bg-[#19D8D0]/10 px-4 py-1.5 text-[11px] font-mono uppercase tracking-widest text-[#19D8D0]">
               <Sparkles size={14} />
               Welcome Back
             </div>
-
-            {/* Title */}
-            <h1 className="font-display text-4xl text-white tracking-wider">
+            <h2 className="font-display text-3xl lg:text-4xl text-white tracking-wider">
               SIGN <span className="text-[#19D8D0]">IN</span>
-            </h1>
+            </h2>
             <p className="mt-2 font-mono text-[11px] tracking-[0.2em] text-slate-400 uppercase">
               Continue your journey
             </p>
           </div>
 
-          {/* Form Container */}
-          <div className="mt-8 rounded-2xl border border-white/10 bg-[#052832]/50 p-6">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#19D8D0] text-[#031B23] shadow-lg shadow-[#19D8D0]/20">
-                <Lock size={18} />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="mb-2 block text-xs font-medium text-slate-300">Username <span className="text-[#19D8D0]">*</span></label>
+              <div className={inputWrapper}>
+                <User size={20} className="absolute left-4 text-slate-500" />
+                <input type="text" placeholder="Enter your userid" className={inputField} required />
               </div>
-              <h2 className="font-mono text-xs uppercase tracking-wider text-[#19D8D0]">
-                Account Access
-              </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Username Input */}
-              <div>
-                <label className="mb-2 block text-xs font-medium text-slate-300">Username <span className="text-[#19D8D0]">*</span></label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
-                    <User size={18} />
-                  </div>
-                  <input 
-                    type="text" 
-                    placeholder="Enter your userid" 
-                    className={`${field} border-white/15 pl-11`} 
-                    required 
-                  />
-                </div>
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <label className="block text-xs font-medium text-slate-300">Password <span className="text-[#19D8D0]">*</span></label>
+                <Link to="/forgot-password" className="text-[11px] text-[#19D8D0] hover:text-white transition-colors hover:underline">Forgot?</Link>
               </div>
-
-              {/* Password Input */}
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <label className="block text-xs font-medium text-slate-300">Password <span className="text-[#19D8D0]">*</span></label>
-                  <Link to="/forgot-password" className="text-[11px] text-[#19D8D0] hover:underline">Forgot?</Link>
-                </div>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
-                    <Lock size={18} />
-                  </div>
-                  <input 
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="Enter your password" 
-                    className={`${field} border-white/15 pl-11 pr-11`} 
-                    required 
-                  />
-                  <button 
-                    type="button" 
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 hover:text-[#19D8D0] transition-colors"
-                  >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                  </button>
-                </div>
+              <div className={inputWrapper}>
+                <Lock size={20} className="absolute left-4 text-slate-500" />
+                <input type={showPassword ? "text" : "password"} placeholder="Enter your password" className={inputField} required />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 text-slate-500 hover:text-[#19D8D0] transition-colors">
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
-            </form>
-          </div>
-
-          {/* Captcha Box */}
-          <div className="mt-5 flex items-center justify-between rounded-2xl border border-white/10 bg-[#052832]/50 p-5">
-            <label className="flex cursor-pointer items-center gap-3">
-              <input 
-                type="checkbox" 
-                checked={isRobot}
-                onChange={() => setIsRobot(!isRobot)}
-                className="h-5 w-5 rounded border-white/20 bg-[#031B23] accent-[#19D8D0]" 
-              />
-              <span className="text-sm text-slate-300">I'm not a robot</span>
-            </label>
-            <div className="flex flex-col items-center text-[#19D8D0]">
-              <ShieldCheck size={20} />
-              <span className="text-[9px] uppercase tracking-widest mt-1 text-slate-400">Privacy</span>
             </div>
-          </div>
 
-          {/* Submit Button */}
-          <button 
-            onClick={handleSubmit} 
-            className="q-focus q-btn-primary group mt-6 flex w-full items-center justify-center gap-2 rounded-xl py-3.5"
-          >
-            SIGN IN <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-          </button>
-
-          {/* Footer Link with Divider */}
-          <div className="mt-8 flex flex-col items-center">
-            <div className="flex w-full items-center gap-3 mb-4">
-              <div className="h-px bg-white/10 flex-1"></div>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">New Here?</span>
-              <div className="h-px bg-white/10 flex-1"></div>
+            <div className="flex items-center justify-between rounded-xl border border-white/5 bg-[#031B23]/60 p-4">
+              <label className="flex cursor-pointer items-center gap-3">
+                <input type="checkbox" checked={isRobot} onChange={() => setIsRobot(!isRobot)} className="h-5 w-5 rounded border-white/20 bg-[#031B23] accent-[#19D8D0]" />
+                <span className="text-sm text-slate-300">I'm not a robot</span>
+              </label>
+              <ShieldCheck size={20} className="text-[#19D8D0]/70" />
             </div>
-            
+
+            <button onClick={handleSubmit} className="q-focus group flex w-full items-center justify-center gap-2 rounded-xl bg-[#19D8D0] py-4 text-[#031B23] font-semibold shadow-[0_0_20px_rgba(25,216,208,0.3)] transition-all duration-300 hover:bg-[#7FF3EC] hover:shadow-[0_0_40px_rgba(25,216,208,0.6)]">
+              SIGN IN <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+            </button>
+          </form>
+
+          <div className="mt-8 flex flex-col items-center lg:items-start">
             <p className="text-sm text-slate-400">
               Don't have an account?{" "}
-              <Link to="/register" className="font-medium text-[#19D8D0] hover:underline transition-colors">
-                Create account
-              </Link>
+              <Link to="/register" className="font-medium text-[#19D8D0] hover:text-[#7FF3EC] transition-colors">Create account</Link>
             </p>
           </div>
-
         </div>
-
-        {/* Bottom Security Text */}
-        <div className="mt-8 flex items-center justify-center gap-2 text-slate-500">
-          <Lock size={14} />
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Secure Encrypted Access</span>
-        </div>
-
-      </div>
+      </motion.div>
     </div>
   );
 }
